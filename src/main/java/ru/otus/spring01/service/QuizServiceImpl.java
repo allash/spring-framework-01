@@ -1,14 +1,22 @@
 package ru.otus.spring01.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.otus.spring01.dao.QuizDao;
 import ru.otus.spring01.domain.Question;
 import ru.otus.spring01.domain.QuizResult;
 
 import java.util.Map;
 
+@Service
 public class QuizServiceImpl implements QuizService {
 
     private QuizDao dao;
+
+    @Autowired
+    public QuizServiceImpl(QuizDao dao) {
+        this.dao = dao;
+    }
 
     public void setDao(QuizDao dao) {
         this.dao = dao;
