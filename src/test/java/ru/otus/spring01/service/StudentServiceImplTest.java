@@ -2,12 +2,13 @@ package ru.otus.spring01.service;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.otus.spring01.Main;
 import ru.otus.spring01.domain.Student;
 
 import java.util.UUID;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class StudentServiceImplTest {
 
@@ -15,7 +16,7 @@ public class StudentServiceImplTest {
 
     @Before
     public void setUp() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
         studentService = context.getBean(StudentService.class);
     }
 
