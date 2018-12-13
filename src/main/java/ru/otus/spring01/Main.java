@@ -6,15 +6,13 @@ import ru.otus.spring01.config.QuizAppContext;
 import ru.otus.spring01.domain.Question;
 import ru.otus.spring01.domain.Student;
 import ru.otus.spring01.service.CsvService;
+import ru.otus.spring01.service.OutputService;
 import ru.otus.spring01.service.QuizWrapperService;
 
 import java.util.List;
-import java.util.Scanner;
 
 @ComponentScan
 public class Main {
-
-    private static String FILE_NAME = "quiz.csv";
 
     public static void main(String[] args) {
 
@@ -22,11 +20,11 @@ public class Main {
 
         CsvService csvService = context.getBean(CsvService.class);
         QuizWrapperService quizWrapperService = context.getBean(QuizWrapperService.class);
-        List<Question> questions = csvService.readCsv(Question.class, FILE_NAME);
+        OutputService outputService = context.getBean(OutputService.class);
 
-        System.out.println("Select your language/Выберите ваш язык: [ru, en]");
-        Scanner scanner = new Scanner(System.in);
-        QuizAppContext.get().setLocale(scanner.next());
+        String lang = outputService.getMessageInput("Select your language/Выберите ваш язык: [ru, en]");
+        QuizAppContext.get().setLocale(lang);
+        List<Question> questions = csvService.readCsv(Question.class, "quiz_" + QuizAppContext.get().getLocale().getLanguage().toLowerCase() + ".csv");
 
         Student student = quizWrapperService.createStudent();
         quizWrapperService.startQuiz(student, questions);

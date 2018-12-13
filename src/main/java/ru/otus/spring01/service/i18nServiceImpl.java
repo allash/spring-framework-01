@@ -14,6 +14,6 @@ public class i18nServiceImpl implements i18nService {
     }
 
     public String getMessage(String messageId) {
-        return messageSource.getMessage(messageId, null, QuizAppContext.get().getLocale());
+        return messageSource.getMessage(messageId, null, QuizAppContext.get().getLocale()).trim();
     }
 }
